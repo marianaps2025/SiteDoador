@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - REDE + SANGUE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="header-home">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo 2.png" alt="Logo Rede + Sangue" class="img-logo">
+                <h1>Rede + Sangue</h1>
+            </a>
+        </div>
+        <nav class="nav-home">
+            <a href="index.html" class="btn-menu">Home</a>
+            <a href="perfil.html" class="btn-menu ativo">Perfil</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (Painel do Doador) -->
+    <main class="container-principal">
+        <section class="secao-perfil">
+            <h2>Painel do Doador</h2>
+            
+            <!-- DIV 1: Dados Pessoais -->
+            <div class="perfil-card dados-pessoais">
+                <h3>Dados Pessoais</h3>
+                <div class="info-linha">
+                    <span class="rotulo">Nome Completo:</span>
+                    <span id="exibir-nome" class="valor">João da Silva Santos</span>
+                </div>
+                <div class="info-linha">
+                    <span class="rotulo">E-mail:</span>
+                    <span id="exibir-email" class="valor">joao@email.com</span>
+                </div>
+                <div class="info-linha">
+                    <span class="rotulo">Tipo Sanguíneo:</span>
+                    <span class="badge-sangue">O+</span>
+                </div>
+            </div>
+
+            <!-- DIV 2: Gota de Sangue com Nível de Preenchimento -->
+            <div class="perfil-card secao-gota-progresso">
+                <h3>Quanto falta deste tipo</h3>
+                <p>Nível de preenchimento baseado em quanta doação falta</p>
+                
+                <div class="gota-container-principal">
+                    <div class="gota-lugar">
+                        <div id="gota-preenchimento" class="gota-nivel" style="height: 60%;"></div>
+                        <span class="icone-gota-borda">🩸</span>
+                    </div>
+                    <span id="texto-progresso" class="texto-progresso">3 de 5 Doações</span>
+                </div>
+            </div>
+
+            <!-- DIV 3: Histórico de Doações -->
+            <div class="perfil-card historico-container">
+                <h3>Histórico de Doações</h3>
+                <ul class="lista-historico">
+                    <li>
+                        <span class="data">15/06/2025</span> - <span class="local">HGA</span> - <span class="status sucesso">Concluído</span>
+                    </li>
+                    <li>
+                        <span class="data">10/01/2025</span> - <span class="local">HGA</span> - <span class="status sucesso">Concluído</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- DIV 4: Rodapé da Seção (Botão) -->
+            <div class="perfil-card acoes-perfil">
+                <a href="index.html" class="btn-voltar">Voltar para a Home</a>
+            </div>
+        </section>
+    </main>
+
+  
+    <footer>
+        <p>&copy; 2026 - Rede + Sangue</p>
+    </footer>
+
+    <!-- SCRIPT DE BUSCA DINÂMICA DO PERFIL  -->
+    <script>
+        const cadastrosExistentes = {
+            "joao@email.com": {
+                nome: "João da Silva Santos",
+                tipoSangue: "O+",
+                progressoAltura: "60%",
+                textoMeta: "3 de 5 Doações"
+            },
+            "maria@email.com": {
+                nome: "Maria Oliveira Souza",
+                tipoSangue: "A-",
+                progressoAltura: "100%",
+                textoMeta: "5 de 5 Doações"
+            },
+            "carlos@email.com": {
+                nome: "Carlos Eduardo Pereira",
+                tipoSangue: "B+",
+                progressoAltura: "20%",
+                textoMeta: "1 de 5 Doações"
+            }
+        };
+
+        // Pega o e-mail do usuário que veio do Login através da URL
+        const parametros = new URLSearchParams(window.location.search);
+        const emailUsuario = parametros.get('email');
+
+        if (emailUsuario && cadastrosExistentes[emailUsuario]) {
+            const dadosDoUsuario = cadastrosExistentes[emailUsuario];
+
+            // Atualiza os dados na tela com base em quem logou
+            document.getElementById('exibir-email').textContent = emailUsuario;
+            document.getElementById('exibir-nome').textContent = dadosDoUsuario.nome;
+            document.getElementById('gota-preenchimento').style.height = dadosDoUsuario.progressoAltura;
+            document.getElementById('texto-progresso').textContent = dadosDoUsuario.textoMeta;
+            
+            // Atualiza visualmente a badge do sangue
+            document.querySelector('.badge-sangue').textContent = dadosDoUsuario.tipoSangue;
+        } else {
+            // Se alguém tentar acessar a página direto sem fazer login, joga de volta para o login
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+</html>

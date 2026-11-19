@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - REDE + SANGUE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="header-home">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo 2.png" alt="Logo Rede + Sangue" class="img-logo">
+                <h1>Rede + Sangue</h1>
+            </a>
+        </div>
+        <nav class="nav-home">
+            <a href="index.html" class="btn-menu ativo">Home</a>
+            <a href="login.html" class="btn-menu">Login</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL DA HOME -->
+    <main class="home-main">
+        
+        <!-- Slide de Fotos e  "Sobre Nós" -->
+        <section class="secao-conteudo-topo">
+            <!-- Slide de Fotos com Animação Automática -->
+            <div class="div-slide-noticias">
+                <h2>Nossas Campanhas</h2>
+                <div class="slide-container">
+                   <img src="foto01.jpg" alt="Campanha de Doação 1" class="slide-foto ativo">
+                    <img src="foto02.jpg" alt="Campanha de Doação 2" class="slide-foto">
+                </div>
+            </div>
+
+            <!-- Div "Sobre" -->
+            <div class="card-sobre">
+                <h2>Sobre Nós</h2>
+                <p>A <strong>Rede + Sangue</strong> nasceu com a missão de conectar doadores voluntários a hemocentros necessitados, simplificando o processo de doação e salvando vidas através da tecnologia.</p>
+            </div>
+        </section>
+
+        <!-- Notícias Atualizáveis e Localização -->
+        <section class="secao-conteudo-inferior">
+            <!-- Seção de Notícias Dinâmicas -->
+            <div class="noticias">
+                <h2>Últimas Notícias</h2>
+                <div id="container-noticias-dinamicas"></div>
+            </div>
+
+            <!-- Div do Google Maps -->
+            <div class="card-mapa">
+                <h2>Onde Doar</h2>
+                <div class="mapa-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3646.502870864652!2d-46.328958825471744!3d-23.94265167570934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce024465fa95bf%3A0x1e411e16e8228ce3!2sFatec%20Baixada%20Santista%20-%20Faculdade%20de%20Tecnologia%20-%20Rubens%20Lara!5e0!3m2!1spt-BR!2sbr!4v1793545264516!5m2!1spt-BR!2sbr"
+                        height="250";
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 - Rede + Sangue</p>
+    </footer>
+
+    <!-- SCRIPT DE ATUALIZAÇÕES AUTOMÁTICAS (NOTÍCIAS E SLIDE) -->
+    <script>
+        // 1. BANCO DE DADOS DE NOTÍCIAS
+        const listaNoticias = [
+            {
+                titulo: "Campanha Urgente de Inverno!",
+                text: "Os estoques de sangue do tipo O- e A+ atingiram nível crítico neste mês. Agende sua doação!"
+            },
+            {
+                titulo: "Novo Hemocentro Parceiro!",
+                text: "Agora você também pode registrar suas doações realizadas no Hospital das Clínicas!"
+            }
+        ];
+
+        const container = document.getElementById('container-noticias-dinamicas');
+        container.innerHTML = "";
+        listaNoticias.forEach(noticia => {
+            container.innerHTML += `
+                <div class="card-noticia">
+                    <h3>${noticia.titulo}</h3>
+                    <p>${noticia.text}</p>
+                </div>
+            `;
+        });
+
+        // 2. LÓGICA DO SLIDE ROTATIVO
+        const fotos = document.querySelectorAll('.slide-foto');
+        let fotoAtual = 0;
+
+        function alternarSlide() {
+            fotos[fotoAtual].classList.remove('ativo');
+            fotoAtual = (fotoAtual + 1) % fotos.length;
+            fotos[fotoAtual].classList.add('ativo');
+        }
+        setInterval(alternarSlide, 3000);
+    </script>
+
+</body>
+</html>
